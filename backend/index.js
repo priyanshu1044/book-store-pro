@@ -1,0 +1,39 @@
+//dependency import 
+import express from 'express';
+import dotenv from 'dotenv'
+import bodyParser from 'body-parser';
+import cors from 'cors';
+//local imports 
+import connectDb from './db.js'
+import bookRoutes from './controllers/book.controller.js'
+
+//app
+const app=express();
+
+//constant
+const dotENV=dotenv.config()
+const port=process.env.PORT||5000
+
+//middleware
+app.use(bodyParser.json())
+// Middleware for handling CORS POLICY
+// Option 1: Allow All Origins with Default of cors(*)
+app.use(cors());
+// Option 2: Allow Custom Origins
+// app.use(
+//   cors({
+//     origin: 'http://localhost:3000',
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type'],
+//   })
+// );
+app.use('/api/books',bookRoutes)
+
+connectDb()
+    .then(()=>{
+        app.listen(port,()=>{
+            console.log(`server is running on port ${port}`)
+        })
+    })
+    .catch(err=>console.log(err))
+
