@@ -27,6 +27,10 @@ app.use(
     allowedHeaders: ['Content-Type'],
   })
 );
+app.get('/', (request, response) => {
+    response.json("hello")
+  });
+
 app.use('/api/books',bookRoutes)
 
 connectDb()
