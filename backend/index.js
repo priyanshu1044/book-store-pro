@@ -12,7 +12,7 @@ const app=express();
 
 //constant
 const dotENV=dotenv.config()
-const port=process.env.PORT||5000
+const port=5000 || process.env.PORT
 
 //middleware
 app.use(bodyParser.json())
